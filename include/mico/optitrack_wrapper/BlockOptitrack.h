@@ -25,6 +25,8 @@
 #include <flow/flow.h>
 #include <flow/DataFlow.h>
 
+#include <Optitrack_Flexible_Framework/OptitrackFF.h>
+
 namespace optitrack_wrapper{
     class BlockOptitrack : public flow::Block{
     public:
@@ -54,6 +56,7 @@ namespace optitrack_wrapper{
         std::string serverIp_;
         std::string clientIp_;
         int targetRate_ = 120;
+        Opti_wrap* optitrack_ = nullptr;
     };
 }
 #endif

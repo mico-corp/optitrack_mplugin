@@ -50,10 +50,8 @@ target_link_libraries(${PLUGIN_NAME} LINK_PUBLIC pthread)
 #########################################
 
 find_package(optitrack_flexible_framework REQUIRED) 
-if(${optitrack_FOUND})
-  target_link_libraries(${COMPONENT_NAME} LINK_PUBLIC optitrack_flexible_framework::optitrack_flexible_framework)
-  target_compile_definitions(${PLUGIN_NAME} PUBLIC FLOW_USE_OPTITRACK)
-endif()
+target_link_libraries(${PLUGIN_NAME} LINK_PUBLIC optitrack_flexible_framework::optitrack_flexible_framework)
+target_compile_definitions(${PLUGIN_NAME} PUBLIC FLOW_USE_OPTITRACK)
 
 find_package(flow REQUIRED)
 if (${flow_FOUND})

@@ -29,10 +29,17 @@
 #include <QLabel>
 
 
+
 namespace optitrack_wrapper{
         BlockOptitrack::BlockOptitrack(){
             createPipe("Pose","mat44");
         }
+
+        // BlockOptitrack::~BlockOptitrack(){
+        //     //Close Sockets
+        //     close(optitrack->sdData);
+        //     close(optitrack->sdCommand);
+        // }
 
         QWidget * BlockOptitrack::customWidget(){
             QGroupBox *box = new QGroupBox;
@@ -55,13 +62,19 @@ namespace optitrack_wrapper{
 
         void BlockOptitrack::loopCallback() {
             auto t0  = std::chrono::steady_clock::now();
+            optitrack_ = new Opti_wrap();
+
+            optitrack_->start_communication();
+            optitrack_->start_time_counter();
             while(isRunningLoop()){
+                optitrack_->run(true);
                 auto t1  = std::chrono::steady_clock::now();
                 float incT = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0).count();
                 if(incT / 1000 > 1/targetRate_){
                     t0 = t1;
                     Eigen::Matrix4f pose = Eigen::Matrix4f::Identity();
                     if(auto pipe = getPipe("Pose"); pipe->registrations() !=0 ){
+                        optitrack_->print_frame_info("Maduro",(int)5,true);
                         //pipe->flush(pose); 
                     }
                 }
