@@ -32,7 +32,7 @@ namespace optitrack_wrapper{
     public:
 		BlockOptitrack();
 
-        std::string name() const override{return "optitrack"; }
+        std::string name() const override{return "Optitrack Streamer"; }
         std::string description() const override {return    "Communication block using Optitrack.\n";};
         
         virtual QWidget * customWidget() override;

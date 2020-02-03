@@ -31,7 +31,7 @@ namespace optitrack_wrapper{
     extern "C" flow::PluginNodeCreator* factory(){
         flow::PluginNodeCreator *creator = new flow::PluginNodeCreator;
 
-        creator->registerNodeCreator([](){ return std::make_unique<flow::FlowVisualBlock<BlockOptitrack>>(); }, "OPTITRACK");
+        creator->registerNodeCreator([](){ return std::make_unique<flow::FlowVisualBlock<BlockOptitrack,true>>(); }, "Streamers");
 
         return creator;
     }
